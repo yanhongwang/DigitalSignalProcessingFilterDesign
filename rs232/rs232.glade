@@ -1,0 +1,1483 @@
+<?xml version="1.0"?>
+<GTK-Interface>
+
+<project>
+  <name>Rs232</name>
+  <program_name>rs232</program_name>
+  <directory></directory>
+  <source_directory>src</source_directory>
+  <pixmaps_directory>pixmaps</pixmaps_directory>
+  <language>C</language>
+  <gnome_support>True</gnome_support>
+  <gettext_support>True</gettext_support>
+</project>
+
+<widget>
+  <class>GtkWindow</class>
+  <name>rs232</name>
+  <signal>
+    <name>delete_event</name>
+    <handler>on_rs232_delete_event</handler>
+    <last_modification_time>Wed, 19 Jun 2002 07:51:53 GMT</last_modification_time>
+  </signal>
+  <signal>
+    <name>show</name>
+    <handler>on_rs232_show</handler>
+    <last_modification_time>Fri, 21 Jun 2002 09:30:54 GMT</last_modification_time>
+  </signal>
+  <title>有限脈衝響應 FIR 及無限脈衝響應 IIR 的頻譜分析應用</title>
+  <type>GTK_WINDOW_TOPLEVEL</type>
+  <position>GTK_WIN_POS_NONE</position>
+  <modal>False</modal>
+  <allow_shrink>False</allow_shrink>
+  <allow_grow>False</allow_grow>
+  <auto_shrink>True</auto_shrink>
+
+  <widget>
+    <class>GtkEventBox</class>
+    <name>eventbox1</name>
+
+    <widget>
+      <class>GtkVBox</class>
+      <name>vbox1</name>
+      <homogeneous>False</homogeneous>
+      <spacing>0</spacing>
+
+      <widget>
+	<class>GtkHBox</class>
+	<name>hbox5</name>
+	<homogeneous>False</homogeneous>
+	<spacing>0</spacing>
+	<child>
+	  <padding>10</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+
+	<widget>
+	  <class>GtkButton</class>
+	  <name>exit</name>
+	  <width>100</width>
+	  <can_focus>True</can_focus>
+	  <signal>
+	    <name>clicked</name>
+	    <handler>on_exit_clicked</handler>
+	    <last_modification_time>Wed, 19 Jun 2002 07:49:53 GMT</last_modification_time>
+	  </signal>
+	  <label>離開</label>
+	  <relief>GTK_RELIEF_NORMAL</relief>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkButton</class>
+	  <name>swap</name>
+	  <width>100</width>
+	  <tooltip>可接收由串列埠所送來的資料</tooltip>
+	  <can_focus>True</can_focus>
+	  <signal>
+	    <name>clicked</name>
+	    <handler>on_swap_clicked</handler>
+	    <last_modification_time>Wed, 19 Jun 2002 07:49:40 GMT</last_modification_time>
+	  </signal>
+	  <label>接收</label>
+	  <relief>GTK_RELIEF_NORMAL</relief>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkButton</class>
+	  <name>clean_data_area</name>
+	  <can_focus>True</can_focus>
+	  <signal>
+	    <name>clicked</name>
+	    <handler>on_clean_data_area_clicked</handler>
+	    <last_modification_time>Sun, 30 Jun 2002 05:28:25 GMT</last_modification_time>
+	  </signal>
+	  <label>清除資料接收區</label>
+	  <relief>GTK_RELIEF_NORMAL</relief>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkLabel</class>
+	  <name>label7</name>
+	  <label>原始資料</label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
+	  <child>
+	    <padding>89</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkLabel</class>
+	  <name>label8</name>
+	  <label>數值資料</label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
+	  <child>
+	    <padding>52</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+      </widget>
+
+      <widget>
+	<class>GtkHSeparator</class>
+	<name>hseparator5</name>
+	<child>
+	  <padding>5</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+      </widget>
+
+      <widget>
+	<class>GtkHBox</class>
+	<name>hbox3</name>
+	<homogeneous>False</homogeneous>
+	<spacing>0</spacing>
+	<child>
+	  <padding>5</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+
+	<widget>
+	  <class>GtkVBox</class>
+	  <name>vbox2</name>
+	  <homogeneous>False</homogeneous>
+	  <spacing>0</spacing>
+	  <child>
+	    <padding>0</padding>
+	    <expand>True</expand>
+	    <fill>True</fill>
+	  </child>
+
+	  <widget>
+	    <class>GtkHBox</class>
+	    <name>hbox18</name>
+	    <homogeneous>False</homogeneous>
+	    <spacing>0</spacing>
+	    <child>
+	      <padding>5</padding>
+	      <expand>True</expand>
+	      <fill>True</fill>
+	    </child>
+
+	    <widget>
+	      <class>GtkLabel</class>
+	      <name>label1</name>
+	      <label>傳輸鮑率</label>
+	      <justify>GTK_JUSTIFY_CENTER</justify>
+	      <wrap>False</wrap>
+	      <xalign>0.5</xalign>
+	      <yalign>0.5</yalign>
+	      <xpad>0</xpad>
+	      <ypad>0</ypad>
+	      <child>
+		<padding>10</padding>
+		<expand>False</expand>
+		<fill>False</fill>
+	      </child>
+	    </widget>
+
+	    <widget>
+	      <class>GtkCombo</class>
+	      <name>combo1</name>
+	      <width>1</width>
+	      <value_in_list>False</value_in_list>
+	      <ok_if_empty>False</ok_if_empty>
+	      <case_sensitive>False</case_sensitive>
+	      <use_arrows>True</use_arrows>
+	      <use_arrows_always>False</use_arrows_always>
+	      <items>2400
+4800
+9600
+19200
+38400
+57600
+115200
+</items>
+	      <child>
+		<padding>10</padding>
+		<expand>True</expand>
+		<fill>True</fill>
+	      </child>
+
+	      <widget>
+		<class>GtkEntry</class>
+		<child_name>GtkCombo:entry</child_name>
+		<name>combo_entry_baudrate</name>
+		<can_focus>True</can_focus>
+		<signal>
+		  <name>changed</name>
+		  <handler>on_combo_entry_baudrate_changed</handler>
+		  <last_modification_time>Wed, 19 Jun 2002 07:54:33 GMT</last_modification_time>
+		</signal>
+		<editable>False</editable>
+		<text_visible>True</text_visible>
+		<text_max_length>0</text_max_length>
+		<text>4800</text>
+	      </widget>
+	    </widget>
+
+	    <widget>
+	      <class>GtkHBox</class>
+	      <name>hbox24</name>
+	      <homogeneous>False</homogeneous>
+	      <spacing>0</spacing>
+	      <child>
+		<padding>0</padding>
+		<expand>True</expand>
+		<fill>True</fill>
+	      </child>
+
+	      <widget>
+		<class>GtkLabel</class>
+		<name>label2</name>
+		<label>資料長度</label>
+		<justify>GTK_JUSTIFY_CENTER</justify>
+		<wrap>False</wrap>
+		<xalign>0.5</xalign>
+		<yalign>0.5</yalign>
+		<xpad>0</xpad>
+		<ypad>0</ypad>
+		<child>
+		  <padding>15</padding>
+		  <expand>False</expand>
+		  <fill>False</fill>
+		</child>
+	      </widget>
+
+	      <widget>
+		<class>GtkEntry</class>
+		<name>entry5</name>
+		<width>1</width>
+		<tooltip>單位是位元組</tooltip>
+		<can_focus>True</can_focus>
+		<editable>True</editable>
+		<text_visible>True</text_visible>
+		<text_max_length>0</text_max_length>
+		<text>16</text>
+		<child>
+		  <padding>10</padding>
+		  <expand>True</expand>
+		  <fill>True</fill>
+		</child>
+	      </widget>
+
+	      <widget>
+		<class>GtkLabel</class>
+		<name>label20</name>
+		<label>位元組數</label>
+		<justify>GTK_JUSTIFY_CENTER</justify>
+		<wrap>False</wrap>
+		<xalign>0.5</xalign>
+		<yalign>0.5</yalign>
+		<xpad>0</xpad>
+		<ypad>0</ypad>
+		<child>
+		  <padding>10</padding>
+		  <expand>False</expand>
+		  <fill>False</fill>
+		</child>
+	      </widget>
+	    </widget>
+	  </widget>
+
+	  <widget>
+	    <class>GtkHBox</class>
+	    <name>hbox19</name>
+	    <homogeneous>False</homogeneous>
+	    <spacing>0</spacing>
+	    <child>
+	      <padding>5</padding>
+	      <expand>True</expand>
+	      <fill>True</fill>
+	    </child>
+
+	    <widget>
+	      <class>GtkLabel</class>
+	      <name>label3</name>
+	      <label>傳輸序列</label>
+	      <justify>GTK_JUSTIFY_CENTER</justify>
+	      <wrap>False</wrap>
+	      <xalign>0.5</xalign>
+	      <yalign>0.5</yalign>
+	      <xpad>0</xpad>
+	      <ypad>0</ypad>
+	      <child>
+		<padding>10</padding>
+		<expand>False</expand>
+		<fill>False</fill>
+	      </child>
+	    </widget>
+
+	    <widget>
+	      <class>GtkHBox</class>
+	      <name>hbox25</name>
+	      <homogeneous>False</homogeneous>
+	      <spacing>0</spacing>
+	      <child>
+		<padding>0</padding>
+		<expand>True</expand>
+		<fill>True</fill>
+	      </child>
+
+	      <widget>
+		<class>GtkCombo</class>
+		<name>combo3</name>
+		<width>1</width>
+		<value_in_list>False</value_in_list>
+		<ok_if_empty>False</ok_if_empty>
+		<case_sensitive>False</case_sensitive>
+		<use_arrows>True</use_arrows>
+		<use_arrows_always>False</use_arrows_always>
+		<items>1
+2
+</items>
+		<child>
+		  <padding>10</padding>
+		  <expand>True</expand>
+		  <fill>True</fill>
+		</child>
+
+		<widget>
+		  <class>GtkEntry</class>
+		  <child_name>GtkCombo:entry</child_name>
+		  <name>combo_entry_port</name>
+		  <can_focus>True</can_focus>
+		  <signal>
+		    <name>changed</name>
+		    <handler>on_combo_entry_port_changed</handler>
+		    <last_modification_time>Fri, 21 Jun 2002 03:56:15 GMT</last_modification_time>
+		  </signal>
+		  <editable>False</editable>
+		  <text_visible>True</text_visible>
+		  <text_max_length>0</text_max_length>
+		  <text>1</text>
+		</widget>
+	      </widget>
+
+	      <widget>
+		<class>GtkHBox</class>
+		<name>hbox26</name>
+		<homogeneous>False</homogeneous>
+		<spacing>0</spacing>
+		<child>
+		  <padding>0</padding>
+		  <expand>True</expand>
+		  <fill>True</fill>
+		</child>
+
+		<widget>
+		  <class>GtkLabel</class>
+		  <name>label4</name>
+		  <label>資料總數</label>
+		  <justify>GTK_JUSTIFY_CENTER</justify>
+		  <wrap>False</wrap>
+		  <xalign>0.5</xalign>
+		  <yalign>0.5</yalign>
+		  <xpad>0</xpad>
+		  <ypad>0</ypad>
+		  <child>
+		    <padding>15</padding>
+		    <expand>False</expand>
+		    <fill>False</fill>
+		  </child>
+		</widget>
+
+		<widget>
+		  <class>GtkEntry</class>
+		  <name>entry2</name>
+		  <width>1</width>
+		  <can_focus>True</can_focus>
+		  <editable>True</editable>
+		  <text_visible>True</text_visible>
+		  <text_max_length>0</text_max_length>
+		  <text>5</text>
+		  <child>
+		    <padding>10</padding>
+		    <expand>True</expand>
+		    <fill>True</fill>
+		  </child>
+		</widget>
+
+		<widget>
+		  <class>GtkLabel</class>
+		  <name>label21</name>
+		  <label>筆資料數</label>
+		  <justify>GTK_JUSTIFY_CENTER</justify>
+		  <wrap>False</wrap>
+		  <xalign>0.5</xalign>
+		  <yalign>0.5</yalign>
+		  <xpad>0</xpad>
+		  <ypad>0</ypad>
+		  <child>
+		    <padding>10</padding>
+		    <expand>False</expand>
+		    <fill>False</fill>
+		  </child>
+		</widget>
+	      </widget>
+	    </widget>
+	  </widget>
+
+	  <widget>
+	    <class>GtkHBox</class>
+	    <name>hbox27</name>
+	    <homogeneous>False</homogeneous>
+	    <spacing>0</spacing>
+	    <child>
+	      <padding>5</padding>
+	      <expand>False</expand>
+	      <fill>False</fill>
+	    </child>
+
+	    <widget>
+	      <class>GtkToggleButton</class>
+	      <name>togglebutton1</name>
+	      <tooltip>不管指定的檔案路徑之檔名存在與否，一律強制寫入</tooltip>
+	      <can_focus>True</can_focus>
+	      <label>強制寫入檔案</label>
+	      <relief>GTK_RELIEF_NORMAL</relief>
+	      <active>True</active>
+	      <child>
+		<padding>10</padding>
+		<expand>False</expand>
+		<fill>False</fill>
+	      </child>
+	    </widget>
+
+	    <widget>
+	      <class>GtkButton</class>
+	      <name>save_as_numeral</name>
+	      <can_focus>True</can_focus>
+	      <signal>
+		<name>clicked</name>
+		<handler>on_save_as_numeral_clicked</handler>
+		<last_modification_time>Mon, 24 Jun 2002 03:12:35 GMT</last_modification_time>
+	      </signal>
+	      <label>檔案路徑</label>
+	      <relief>GTK_RELIEF_NORMAL</relief>
+	      <child>
+		<padding>0</padding>
+		<expand>False</expand>
+		<fill>False</fill>
+	      </child>
+	    </widget>
+
+	    <widget>
+	      <class>GtkEntry</class>
+	      <name>entry1</name>
+	      <width>1</width>
+	      <can_focus>True</can_focus>
+	      <editable>True</editable>
+	      <text_visible>True</text_visible>
+	      <text_max_length>0</text_max_length>
+	      <text>/home/allways/numeral.txt</text>
+	      <child>
+		<padding>10</padding>
+		<expand>True</expand>
+		<fill>True</fill>
+	      </child>
+	    </widget>
+	  </widget>
+	</widget>
+
+	<widget>
+	  <class>GtkScrolledWindow</class>
+	  <name>scrolledwindow1</name>
+	  <width>1</width>
+	  <hscrollbar_policy>GTK_POLICY_NEVER</hscrollbar_policy>
+	  <vscrollbar_policy>GTK_POLICY_ALWAYS</vscrollbar_policy>
+	  <hupdate_policy>GTK_UPDATE_CONTINUOUS</hupdate_policy>
+	  <vupdate_policy>GTK_UPDATE_CONTINUOUS</vupdate_policy>
+	  <child>
+	    <padding>5</padding>
+	    <expand>True</expand>
+	    <fill>True</fill>
+	  </child>
+
+	  <widget>
+	    <class>GtkText</class>
+	    <name>text1</name>
+	    <tooltip>從串列埠傳來的完整資料</tooltip>
+	    <can_focus>True</can_focus>
+	    <editable>False</editable>
+	    <text></text>
+	  </widget>
+	</widget>
+
+	<widget>
+	  <class>GtkScrolledWindow</class>
+	  <name>scrolledwindow2</name>
+	  <width>1</width>
+	  <hscrollbar_policy>GTK_POLICY_NEVER</hscrollbar_policy>
+	  <vscrollbar_policy>GTK_POLICY_ALWAYS</vscrollbar_policy>
+	  <hupdate_policy>GTK_UPDATE_CONTINUOUS</hupdate_policy>
+	  <vupdate_policy>GTK_UPDATE_CONTINUOUS</vupdate_policy>
+	  <child>
+	    <padding>5</padding>
+	    <expand>True</expand>
+	    <fill>True</fill>
+	  </child>
+
+	  <widget>
+	    <class>GtkText</class>
+	    <name>text2</name>
+	    <tooltip>從完整資料所得到的純數值資料</tooltip>
+	    <can_focus>True</can_focus>
+	    <editable>False</editable>
+	    <text></text>
+	  </widget>
+	</widget>
+      </widget>
+
+      <widget>
+	<class>GtkHSeparator</class>
+	<name>hseparator4</name>
+	<child>
+	  <padding>5</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+      </widget>
+
+      <widget>
+	<class>GtkHBox</class>
+	<name>hbox4</name>
+	<homogeneous>False</homogeneous>
+	<spacing>0</spacing>
+	<child>
+	  <padding>5</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+
+	<widget>
+	  <class>GtkLabel</class>
+	  <name>label22</name>
+	  <label>使用本軟體之濾波器</label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkRadioButton</class>
+	  <name>radiobutton1</name>
+	  <can_focus>True</can_focus>
+	  <label>是</label>
+	  <active>False</active>
+	  <draw_indicator>True</draw_indicator>
+	  <group>4</group>
+	  <child>
+	    <padding>0</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkRadioButton</class>
+	  <name>radiobutton2</name>
+	  <can_focus>True</can_focus>
+	  <label>否</label>
+	  <active>True</active>
+	  <draw_indicator>True</draw_indicator>
+	  <group>4</group>
+	  <child>
+	    <padding>0</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+      </widget>
+
+      <widget>
+	<class>GtkHSeparator</class>
+	<name>hseparator6</name>
+	<child>
+	  <padding>5</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+      </widget>
+
+      <widget>
+	<class>GtkHBox</class>
+	<name>hbox29</name>
+	<homogeneous>False</homogeneous>
+	<spacing>0</spacing>
+	<child>
+	  <padding>5</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+
+	<widget>
+	  <class>GtkButton</class>
+	  <name>spectrum</name>
+	  <tooltip>當各參數及設定好了之後，就可以按此鈕來繪製圖形了</tooltip>
+	  <can_focus>True</can_focus>
+	  <signal>
+	    <name>clicked</name>
+	    <handler>on_spectrum_clicked</handler>
+	    <last_modification_time>Wed, 19 Jun 2002 07:54:58 GMT</last_modification_time>
+	  </signal>
+	  <label>開始繪製濾波器頻譜圖</label>
+	  <relief>GTK_RELIEF_NORMAL</relief>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkButton</class>
+	  <name>inspect</name>
+	  <tooltip>可不是 A 圖喔！是頻譜圖啦！</tooltip>
+	  <can_focus>True</can_focus>
+	  <signal>
+	    <name>clicked</name>
+	    <handler>on_inspect_clicked</handler>
+	    <last_modification_time>Thu, 18 Jul 2002 01:58:51 GMT</last_modification_time>
+	  </signal>
+	  <label>檢視圖檔</label>
+	  <relief>GTK_RELIEF_NORMAL</relief>
+	  <child>
+	    <padding>0</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+      </widget>
+
+      <widget>
+	<class>GtkHBox</class>
+	<name>hbox30</name>
+	<homogeneous>False</homogeneous>
+	<spacing>0</spacing>
+	<child>
+	  <padding>5</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+
+	<widget>
+	  <class>GtkToggleButton</class>
+	  <name>big_spectrum</name>
+	  <can_focus>True</can_focus>
+	  <label>大張的頻譜圖</label>
+	  <relief>GTK_RELIEF_NORMAL</relief>
+	  <active>False</active>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkOptionMenu</class>
+	  <name>optionmenu1</name>
+	  <can_focus>True</can_focus>
+	  <items>          頻譜圖表示方法
+X 軸：數位頻率 Y：線性增益
+X 軸：數位頻率 Y：分貝增益
+X 軸：類比頻率 Y：線性增益
+X 軸：類比頻率 Y：分貝增益
+</items>
+	  <initial_choice>0</initial_choice>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkToggleButton</class>
+	  <name>print_spectrum</name>
+	  <tooltip>頻譜圖需要用印表機繪製出來的時候，使之下沈，記得印表機的名稱要加喔！</tooltip>
+	  <can_focus>True</can_focus>
+	  <signal>
+	    <name>toggled</name>
+	    <handler>on_print_spectrum_toggled</handler>
+	    <last_modification_time>Sat, 29 Jun 2002 12:13:42 GMT</last_modification_time>
+	  </signal>
+	  <label>頻譜圖用印表機印出</label>
+	  <relief>GTK_RELIEF_NORMAL</relief>
+	  <active>False</active>
+	  <child>
+	    <padding>0</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkLabel</class>
+	  <name>label19</name>
+	  <label>印表機的電腦名稱</label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkEntry</class>
+	  <name>printer_name</name>
+	  <width>1</width>
+	  <tooltip>就是在網路上印表機的名字，可不是他的“產品名字”喔</tooltip>
+	  <can_focus>True</can_focus>
+	  <editable>True</editable>
+	  <text_visible>True</text_visible>
+	  <text_max_length>0</text_max_length>
+	  <text>hp</text>
+	  <child>
+	    <padding>10</padding>
+	    <expand>True</expand>
+	    <fill>True</fill>
+	  </child>
+	</widget>
+      </widget>
+
+      <widget>
+	<class>GtkHBox</class>
+	<name>hbox17</name>
+	<homogeneous>False</homogeneous>
+	<spacing>0</spacing>
+	<child>
+	  <padding>5</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+
+	<widget>
+	  <class>GtkLabel</class>
+	  <name>label18</name>
+	  <label>頻譜圖平滑度( X 軸 )</label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkEntry</class>
+	  <name>point</name>
+	  <width>1</width>
+	  <tooltip>就是你希望 X 軸能夠分成幾個等分呢？</tooltip>
+	  <can_focus>True</can_focus>
+	  <editable>True</editable>
+	  <text_visible>True</text_visible>
+	  <text_max_length>0</text_max_length>
+	  <text>200</text>
+	  <child>
+	    <padding>0</padding>
+	    <expand>True</expand>
+	    <fill>True</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkButton</class>
+	  <name>save_as_eps</name>
+	  <can_focus>True</can_focus>
+	  <signal>
+	    <name>clicked</name>
+	    <handler>on_save_as_eps_clicked</handler>
+	    <last_modification_time>Mon, 24 Jun 2002 03:14:09 GMT</last_modification_time>
+	  </signal>
+	  <label>eps、ps、pdf 檔儲存路徑，請加上副檔名</label>
+	  <relief>GTK_RELIEF_NORMAL</relief>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkEntry</class>
+	  <name>entry4</name>
+	  <width>1</width>
+	  <tooltip>請記得一定得把圖檔的副檔名自行加入。如 eps ps pdf</tooltip>
+	  <can_focus>True</can_focus>
+	  <editable>True</editable>
+	  <text_visible>True</text_visible>
+	  <text_max_length>0</text_max_length>
+	  <text>/home/allways/spectrum.eps</text>
+	  <child>
+	    <padding>10</padding>
+	    <expand>True</expand>
+	    <fill>True</fill>
+	  </child>
+	</widget>
+      </widget>
+
+      <widget>
+	<class>GtkHSeparator</class>
+	<name>hseparator1</name>
+	<child>
+	  <padding>5</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+      </widget>
+
+      <widget>
+	<class>GtkHBox</class>
+	<name>hbox9</name>
+	<homogeneous>False</homogeneous>
+	<spacing>0</spacing>
+	<child>
+	  <padding>5</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+
+	<widget>
+	  <class>GtkLabel</class>
+	  <name>label9</name>
+	  <label>濾波器的頻譜圖產生方式：</label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
+	  <child>
+	    <padding>5</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkRadioButton</class>
+	  <name>specification_on</name>
+	  <tooltip>你可以自行由濾波器的各個參數一一輸入你要的頻帶範圍</tooltip>
+	  <can_focus>True</can_focus>
+	  <signal>
+	    <name>clicked</name>
+	    <handler>on_specification_on_clicked</handler>
+	    <last_modification_time>Thu, 27 Jun 2002 07:35:31 GMT</last_modification_time>
+	  </signal>
+	  <label>濾波器明細規格</label>
+	  <active>True</active>
+	  <draw_indicator>True</draw_indicator>
+	  <group>1</group>
+	  <child>
+	    <padding>5</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkRadioButton</class>
+	  <name>coefficient_on</name>
+	  <tooltip>你可以由虛擬一個轉移函數的係數來得到你要的頻譜圖，等到劃出來的時候，再去修正你的係數，也是一種方法</tooltip>
+	  <can_focus>True</can_focus>
+	  <signal>
+	    <name>clicked</name>
+	    <handler>on_coefficient_on_clicked</handler>
+	    <last_modification_time>Thu, 27 Jun 2002 07:35:52 GMT</last_modification_time>
+	  </signal>
+	  <label>假設之係數帶入轉移函式</label>
+	  <active>False</active>
+	  <draw_indicator>True</draw_indicator>
+	  <group>1</group>
+	  <child>
+	    <padding>5</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+      </widget>
+
+      <widget>
+	<class>GtkHSeparator</class>
+	<name>hseparator3</name>
+	<child>
+	  <padding>5</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+      </widget>
+
+      <widget>
+	<class>GtkHBox</class>
+	<name>hbox6</name>
+	<homogeneous>False</homogeneous>
+	<spacing>0</spacing>
+	<child>
+	  <padding>5</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+
+	<widget>
+	  <class>GtkLabel</class>
+	  <name>label11</name>
+	  <label>濾波器明細規格：</label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
+	  <child>
+	    <padding>5</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkRadioButton</class>
+	  <name>move_average</name>
+	  <can_focus>True</can_focus>
+	  <signal>
+	    <name>clicked</name>
+	    <handler>on_move_average_clicked</handler>
+	    <last_modification_time>Mon, 24 Jun 2002 08:50:08 GMT</last_modification_time>
+	  </signal>
+	  <label>FIR：移動平均濾波器</label>
+	  <active>False</active>
+	  <draw_indicator>True</draw_indicator>
+	  <group>2</group>
+	  <child>
+	    <padding>0</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkRadioButton</class>
+	  <name>window</name>
+	  <can_focus>True</can_focus>
+	  <signal>
+	    <name>clicked</name>
+	    <handler>on_window_clicked</handler>
+	    <last_modification_time>Mon, 24 Jun 2002 08:50:15 GMT</last_modification_time>
+	  </signal>
+	  <label>FIR：視窗濾波器</label>
+	  <active>False</active>
+	  <draw_indicator>True</draw_indicator>
+	  <group>2</group>
+	  <child>
+	    <padding>0</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkRadioButton</class>
+	  <name>butterworth</name>
+	  <tooltip>其實就是巴特沃滋啦！</tooltip>
+	  <can_focus>True</can_focus>
+	  <signal>
+	    <name>clicked</name>
+	    <handler>on_butterworth_clicked</handler>
+	    <last_modification_time>Mon, 24 Jun 2002 08:50:20 GMT</last_modification_time>
+	  </signal>
+	  <label>IIR：奶油值得濾波器</label>
+	  <active>False</active>
+	  <draw_indicator>True</draw_indicator>
+	  <group>2</group>
+	  <child>
+	    <padding>0</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkRadioButton</class>
+	  <name>chebyshev</name>
+	  <can_focus>True</can_focus>
+	  <signal>
+	    <name>clicked</name>
+	    <handler>on_chebyshev_clicked</handler>
+	    <last_modification_time>Mon, 24 Jun 2002 08:50:27 GMT</last_modification_time>
+	  </signal>
+	  <label>IIR：契比雪夫濾波器</label>
+	  <active>True</active>
+	  <draw_indicator>True</draw_indicator>
+	  <group>2</group>
+	  <child>
+	    <padding>0</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+      </widget>
+
+      <widget>
+	<class>GtkHBox</class>
+	<name>hbox8</name>
+	<homogeneous>False</homogeneous>
+	<spacing>0</spacing>
+	<child>
+	  <padding>5</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+
+	<widget>
+	  <class>GtkLabel</class>
+	  <name>fs_label</name>
+	  <label>取樣頻率</label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkEntry</class>
+	  <name>fs</name>
+	  <width>1</width>
+	  <tooltip>單位為赫茲</tooltip>
+	  <can_focus>True</can_focus>
+	  <editable>True</editable>
+	  <text_visible>True</text_visible>
+	  <text_max_length>0</text_max_length>
+	  <text>20000</text>
+	  <child>
+	    <padding>0</padding>
+	    <expand>True</expand>
+	    <fill>True</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkLabel</class>
+	  <name>pass_edge_label</name>
+	  <label>通帶截止頻率</label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkEntry</class>
+	  <name>pass_edge</name>
+	  <width>1</width>
+	  <tooltip>單位為赫茲</tooltip>
+	  <can_focus>True</can_focus>
+	  <editable>True</editable>
+	  <text_visible>True</text_visible>
+	  <text_max_length>0</text_max_length>
+	  <text>5000</text>
+	  <child>
+	    <padding>0</padding>
+	    <expand>True</expand>
+	    <fill>True</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkLabel</class>
+	  <name>stop_edge_label</name>
+	  <label>止帶截止頻率</label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkEntry</class>
+	  <name>stop_edge</name>
+	  <width>1</width>
+	  <tooltip>單位為赫茲</tooltip>
+	  <can_focus>True</can_focus>
+	  <editable>True</editable>
+	  <text_visible>True</text_visible>
+	  <text_max_length>0</text_max_length>
+	  <text>7500</text>
+	  <child>
+	    <padding>0</padding>
+	    <expand>True</expand>
+	    <fill>True</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkLabel</class>
+	  <name>pass_ripple_label</name>
+	  <label>通帶漣波</label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkEntry</class>
+	  <name>pass_ripple</name>
+	  <width>1</width>
+	  <tooltip>單位為分貝增益</tooltip>
+	  <can_focus>True</can_focus>
+	  <editable>True</editable>
+	  <text_visible>True</text_visible>
+	  <text_max_length>0</text_max_length>
+	  <text>1</text>
+	  <child>
+	    <padding>0</padding>
+	    <expand>True</expand>
+	    <fill>True</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkLabel</class>
+	  <name>stop_ripple_label</name>
+	  <label>止帶漣波</label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkEntry</class>
+	  <name>stop_ripple</name>
+	  <width>1</width>
+	  <tooltip>單位為分貝增益</tooltip>
+	  <can_focus>True</can_focus>
+	  <editable>True</editable>
+	  <text_visible>True</text_visible>
+	  <text_max_length>0</text_max_length>
+	  <text>32</text>
+	  <child>
+	    <padding>10</padding>
+	    <expand>True</expand>
+	    <fill>True</fill>
+	  </child>
+	</widget>
+      </widget>
+
+      <widget>
+	<class>GtkHSeparator</class>
+	<name>hseparator2</name>
+	<child>
+	  <padding>5</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+      </widget>
+
+      <widget>
+	<class>GtkHBox</class>
+	<name>hbox10</name>
+	<homogeneous>False</homogeneous>
+	<spacing>0</spacing>
+	<child>
+	  <padding>5</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+
+	<widget>
+	  <class>GtkLabel</class>
+	  <name>label12</name>
+	  <label>假設之係數帶入轉移函式：</label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
+	  <child>
+	    <padding>5</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkRadioButton</class>
+	  <name>fir_input_coefficient</name>
+	  <can_focus>True</can_focus>
+	  <signal>
+	    <name>clicked</name>
+	    <handler>on_fir_input_coefficient_clicked</handler>
+	    <last_modification_time>Sat, 29 Jun 2002 08:35:38 GMT</last_modification_time>
+	  </signal>
+	  <label>有限脈衝 FIR 濾波器</label>
+	  <active>True</active>
+	  <draw_indicator>True</draw_indicator>
+	  <group>3</group>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkRadioButton</class>
+	  <name>iir_input_coefficient</name>
+	  <can_focus>True</can_focus>
+	  <signal>
+	    <name>clicked</name>
+	    <handler>on_iir_input_coefficient_clicked</handler>
+	    <last_modification_time>Sat, 29 Jun 2002 08:55:03 GMT</last_modification_time>
+	  </signal>
+	  <label>無限脈衝 IIR 濾波器</label>
+	  <active>False</active>
+	  <draw_indicator>True</draw_indicator>
+	  <group>3</group>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkButton</class>
+	  <name>identify_stability</name>
+	  <tooltip>因為你的轉移函數是假設的值，所以穩不穩定你也不確定，此鈕可以判斷一下，因為 FIR 一定是穩定的，所以不用測了。</tooltip>
+	  <can_focus>True</can_focus>
+	  <label>IIR 濾波器穩定度鑑定(未完成)</label>
+	  <relief>GTK_RELIEF_NORMAL</relief>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+      </widget>
+
+      <widget>
+	<class>GtkHBox</class>
+	<name>hbox14</name>
+	<homogeneous>False</homogeneous>
+	<spacing>0</spacing>
+	<child>
+	  <padding>5</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+
+	<widget>
+	  <class>GtkLabel</class>
+	  <name>label16</name>
+	  <label>轉移函數分母 Y( n ) </label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkEntry</class>
+	  <name>a_value</name>
+	  <width>1</width>
+	  <tooltip>就是轉移函數中的分母部份，當然這只有 IIR 才會有的</tooltip>
+	  <can_focus>True</can_focus>
+	  <editable>True</editable>
+	  <text_visible>True</text_visible>
+	  <text_max_length>0</text_max_length>
+	  <text>1 -0.7757</text>
+	  <child>
+	    <padding>10</padding>
+	    <expand>True</expand>
+	    <fill>True</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkLabel</class>
+	  <name>label17</name>
+	  <label>轉移函數分子 X( n )</label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
+	  <child>
+	    <padding>10</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkEntry</class>
+	  <name>b_value</name>
+	  <width>1</width>
+	  <can_focus>True</can_focus>
+	  <editable>True</editable>
+	  <text_visible>True</text_visible>
+	  <text_max_length>0</text_max_length>
+	  <text>4.7 2.2 3.6 2.2 4.7</text>
+	  <child>
+	    <padding>10</padding>
+	    <expand>True</expand>
+	    <fill>True</fill>
+	  </child>
+	</widget>
+      </widget>
+
+      <widget>
+	<class>GnomeAppBar</class>
+	<name>appbar1</name>
+	<has_progress>True</has_progress>
+	<has_status>True</has_status>
+	<child>
+	  <padding>0</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+      </widget>
+
+      <widget>
+	<class>GtkHBox</class>
+	<name>hbox28</name>
+	<homogeneous>False</homogeneous>
+	<spacing>0</spacing>
+	<child>
+	  <padding>0</padding>
+	  <expand>True</expand>
+	  <fill>True</fill>
+	</child>
+
+	<widget>
+	  <class>GtkStatusbar</class>
+	  <name>statusbar1</name>
+	  <width>629</width>
+	  <child>
+	    <padding>0</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+
+	<widget>
+	  <class>GtkProgressBar</class>
+	  <name>progressbar1</name>
+	  <value>0</value>
+	  <lower>0</lower>
+	  <upper>100</upper>
+	  <bar_style>GTK_PROGRESS_CONTINUOUS</bar_style>
+	  <orientation>GTK_PROGRESS_LEFT_TO_RIGHT</orientation>
+	  <activity_mode>False</activity_mode>
+	  <show_text>True</show_text>
+	  <format>%P %% 完成</format>
+	  <text_xalign>0.5</text_xalign>
+	  <text_yalign>0.5</text_yalign>
+	  <child>
+	    <padding>0</padding>
+	    <expand>False</expand>
+	    <fill>False</fill>
+	  </child>
+	</widget>
+      </widget>
+    </widget>
+  </widget>
+</widget>
+
+</GTK-Interface>
